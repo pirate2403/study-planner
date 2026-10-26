@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Предметы — Планировщик</title>
+    <link rel="stylesheet" href="/mockup.css" />
+  </head>
+  <body>
+    <header>
+      <strong>Учебный планировщик</strong>
+      <nav aria-label="Основная навигация">
+        <a href="/mockup.html">Задачи</a
+        ><a href="/mockup-subjects.html">Предметы</a>
+      </nav>
+      <small>Статический макет · данные демонстрационные</small>
+    </header>
+    <main>
+      <div class="heading">
+        <div>
+          <h1>Предметы</h1>
+          <div class="muted">Справочник для задач и фильтров</div>
+        </div>
+        <button
+          class="primary"
+          type="button"
+          onclick="document.getElementById('create-subject').showModal()"
+        >
+          Добавить предмет
+        </button>
+      </div>
+      <section class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Базы данных</td>
+              <td>
+                <div class="actions">
+                  <button
+                    type="button"
+                    onclick="
+                      document.getElementById('edit-subject').showModal()
+                    "
+                  >
+                    Переименовать</button
+                  ><button
+                    class="danger"
+                    type="button"
+                    onclick="
+                      document.getElementById('delete-subject').showModal()
+                    "
+                  >
+                    Удалить
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Интернет-программирование</td>
+              <td class="muted">Те же действия</td>
+            </tr>
+            <tr>
+              <td>Математика</td>
+              <td class="muted">Те же действия</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <dialog id="create-subject">
+        <h2>Новый предмет</h2>
+        <label
+          ><span>Название *</span
+          ><input maxlength="120" placeholder="Например, физика"
+        /></label>
+        <div class="actions">
+          <button class="primary" type="button">Создать (демо)</button
+          ><button type="button" onclick="this.closest('dialog').close()">
+            Отмена
+          </button>
+        </div>
+      </dialog>
+      <dialog id="edit-subject">
+        <h2>Переименовать предмет</h2>
+        <label
+          ><span>Название *</span><input maxlength="120" value="Базы данных"
+        /></label>
+        <div class="actions">
+          <button class="primary" type="button">Сохранить (демо)</button
+          ><button type="button" onclick="this.closest('dialog').close()">
+            Отмена
+          </button>
+        </div>
+      </dialog>
+      <dialog id="delete-subject">
+        <h2>Удалить предмет?</h2>
+        <p>Предмет можно удалить, только если у него нет задач.</p>
+        <div class="actions">
+          <button class="danger" type="button">Удалить (демо)</button
+          ><button type="button" onclick="this.closest('dialog').close()">
+            Отмена
+          </button>
+        </div>
+      </dialog>
+      <div class="note">
+        При реализации: совпадающее название → сообщение «Предмет уже
+        существует»; удаление предмета с задачами → «Сначала удалите или
+        перенесите задачи». Все изменения в макете демонстрационные.
+      </div>
+    </main>
+  </body>
+</html>

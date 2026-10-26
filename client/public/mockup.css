@@ -1,0 +1,195 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  color: #222;
+  background: #f5f5f5;
+  font:
+    14px/1.5 Arial,
+    sans-serif;
+}
+header {
+  background: white;
+  border-bottom: 1px solid #ddd;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+a {
+  color: #1677ff;
+  text-decoration: none;
+}
+nav {
+  display: flex;
+  gap: 20px;
+}
+main {
+  max-width: 1120px;
+  margin: 32px auto;
+  padding: 0 20px;
+}
+h1 {
+  font-size: 25px;
+  margin: 0 0 6px;
+}
+h2 {
+  font-size: 18px;
+  margin-top: 0;
+}
+.muted,
+small {
+  color: #666;
+}
+.heading,
+.toolbar,
+.actions,
+.pagination {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.heading {
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.toolbar {
+  margin-bottom: 20px;
+}
+button,
+.button,
+input,
+select,
+textarea {
+  font: inherit;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  background: white;
+}
+button,
+.button {
+  cursor: pointer;
+  display: inline-block;
+  color: #222;
+}
+.primary {
+  color: white;
+  background: #1677ff;
+  border-color: #1677ff;
+}
+.danger {
+  color: #c22;
+}
+input[type='search'] {
+  min-width: 250px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+th,
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+th {
+  background: #fafafa;
+  font-weight: 600;
+}
+.table-wrap {
+  overflow-x: auto;
+}
+.pagination {
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 18px;
+}
+label span {
+  display: block;
+  margin-bottom: 6px;
+}
+label input,
+label select,
+label textarea {
+  width: 100%;
+}
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.form {
+  max-width: 720px;
+}
+.note {
+  padding: 12px 16px;
+  background: #fafafa;
+  border: 1px dashed #ccc;
+  margin: 18px 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+dl {
+  margin: 0;
+}
+dt {
+  color: #666;
+  margin-top: 16px;
+}
+dd {
+  margin: 4px 0 0;
+}
+.tag {
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+  display: inline-block;
+  border-radius: 4px;
+}
+.breadcrumb {
+  margin-bottom: 18px;
+}
+dialog {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-width: 440px;
+  width: calc(100% - 40px);
+}
+dialog::backdrop {
+  background: #0005;
+}
+@media (max-width: 700px) {
+  header {
+    padding: 14px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  main {
+    margin-top: 20px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 16px;
+  }
+  .toolbar > * {
+    width: 100%;
+  }
+}

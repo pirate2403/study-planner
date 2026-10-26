@@ -1,0 +1,13 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { SubjectsModule } from './subjects/subjects.module.js';
+import { TasksModule } from './tasks/tasks.module.js';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ envFilePath: '../.env', isGlobal: true }),
+    TasksModule,
+    SubjectsModule,
+  ],
+})
+export class AppModule {}
