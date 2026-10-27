@@ -1,0 +1,403 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/tasks": {
+      "get": {
+        "operationId": "TasksController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000000,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Поиск по названию без учёта регистра",
+            "schema": { "maxLength": 200, "type": "string" }
+          },
+          {
+            "name": "subjectId",
+            "required": false,
+            "in": "query",
+            "description": "Идентификатор предмета",
+            "schema": { "minimum": 1, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TasksPageDto" }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" }
+        },
+        "summary": "Список задач с поиском, фильтром и пагинацией",
+        "tags": ["tasks"]
+      },
+      "post": {
+        "operationId": "TasksController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTaskDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TaskResponseDto" }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" }
+        },
+        "summary": "Создать задачу",
+        "tags": ["tasks"]
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "operationId": "TasksController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "example": 1, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TaskResponseDto" }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" },
+          "404": { "description": "Запись не найдена" }
+        },
+        "summary": "Получить задачу",
+        "tags": ["tasks"]
+      },
+      "patch": {
+        "operationId": "TasksController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "example": 1, "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateTaskDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TaskResponseDto" }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" },
+          "404": { "description": "Запись не найдена" }
+        },
+        "summary": "Изменить задачу",
+        "tags": ["tasks"]
+      },
+      "delete": {
+        "operationId": "TasksController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "example": 1, "type": "number" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Удалено" },
+          "400": { "description": "Некорректные параметры или тело запроса" },
+          "404": { "description": "Запись не найдена" }
+        },
+        "summary": "Удалить задачу",
+        "tags": ["tasks"]
+      }
+    },
+    "/subjects": {
+      "get": {
+        "operationId": "SubjectsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/SubjectResponseDto" }
+                }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" }
+        },
+        "summary": "Список предметов",
+        "tags": ["subjects"]
+      },
+      "post": {
+        "operationId": "SubjectsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateSubjectDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubjectResponseDto" }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" },
+          "409": {
+            "description": "Название занято или предмет используется в задачах"
+          }
+        },
+        "summary": "Создать предмет",
+        "tags": ["subjects"]
+      }
+    },
+    "/subjects/{id}": {
+      "patch": {
+        "operationId": "SubjectsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "example": 1, "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSubjectDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubjectResponseDto" }
+              }
+            }
+          },
+          "400": { "description": "Некорректные параметры или тело запроса" },
+          "404": { "description": "Запись не найдена" },
+          "409": {
+            "description": "Название занято или предмет используется в задачах"
+          }
+        },
+        "summary": "Изменить предмет",
+        "tags": ["subjects"]
+      },
+      "delete": {
+        "operationId": "SubjectsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "example": 1, "type": "number" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Удалено" },
+          "400": { "description": "Некорректные параметры или тело запроса" },
+          "404": { "description": "Запись не найдена" },
+          "409": {
+            "description": "Название занято или предмет используется в задачах"
+          }
+        },
+        "summary": "Удалить предмет",
+        "tags": ["subjects"]
+      }
+    }
+  },
+  "info": {
+    "title": "Учебный планировщик",
+    "description": "Задачи и предметы. Поиск, фильтрация и пагинация задач.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "TaskResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "example": 1 },
+          "title": { "type": "string", "example": "Лабораторная работа" },
+          "description": { "type": "string", "example": "Подготовить отчёт" },
+          "dueDate": {
+            "type": "string",
+            "example": "2026-11-15",
+            "format": "date"
+          },
+          "subjectId": { "type": "number", "example": 1 },
+          "subjectName": { "type": "string", "example": "Математика" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "dueDate",
+          "subjectId",
+          "subjectName",
+          "createdAt"
+        ]
+      },
+      "TasksPageDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TaskResponseDto" }
+          },
+          "total": { "type": "number", "example": 42 },
+          "page": { "type": "number", "example": 1 },
+          "limit": { "type": "number", "example": 20 },
+          "totalPages": { "type": "number", "example": 3 }
+        },
+        "required": ["items", "total", "page", "limit", "totalPages"]
+      },
+      "CreateTaskDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Лабораторная работа",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "example": "Подготовить отчёт",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "dueDate": {
+            "type": "string",
+            "example": "2026-11-15",
+            "format": "date"
+          },
+          "subjectId": { "type": "number", "example": 1, "minimum": 1 }
+        },
+        "required": ["title", "description", "dueDate", "subjectId"]
+      },
+      "UpdateTaskDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Новое название",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "example": "Новое описание",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "dueDate": {
+            "type": "string",
+            "example": "2026-11-15",
+            "format": "date"
+          },
+          "subjectId": { "type": "number", "example": 1, "minimum": 1 }
+        }
+      },
+      "SubjectResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "example": 1 },
+          "name": { "type": "string", "example": "Математика" }
+        },
+        "required": ["id", "name"]
+      },
+      "CreateSubjectDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Математика",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "required": ["name"]
+      },
+      "UpdateSubjectDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Математика",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  }
+}
